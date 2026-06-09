@@ -1,0 +1,303 @@
+/* ── TOKENS ── */
+:root {
+  --celeste:     #75AADB;   /* celeste AFA */
+  --celeste-vivo:#4A90D9;
+  --blanco:      #F0F4FF;
+  --fondo:       #0D1117;
+  --fondo-card:  #161B22;
+  --fondo-card2: #1C2230;
+  --borde:       #2A3344;
+  --texto:       #E8EDF5;
+  --texto-suave: #8B97AB;
+  --oro:         #F5C842;
+  --plata:       #C0C8D8;
+  --bronce:      #CD7F32;
+  --verde-wa:    #25D366;
+  --radio:       12px;
+  --radio-lg:    18px;
+}
+
+/* ── RESET MÍNIMO ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+/* ── APP WRAPPER ── */
+.app {
+  max-width: 680px;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+}
+
+/* ── HEADER ── */
+.header {
+  position: relative;
+  padding: 3rem 1.5rem 2.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Banda celeste/blanca diagonal sutil en el fondo */
+.header-banda {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    160deg,
+    transparent 0px,
+    transparent 38px,
+    rgba(117, 170, 219, 0.06) 38px,
+    rgba(117, 170, 219, 0.06) 76px
+  );
+  pointer-events: none;
+}
+
+.header-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--celeste);
+  margin-bottom: 0.75rem;
+}
+
+.header-title {
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--blanco);
+  /* Línea doble: blanco + celeste */
+  background: linear-gradient(135deg, #fff 40%, var(--celeste) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-sub {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+  letter-spacing: 0.05em;
+}
+
+/* ── MAIN & SECCIONES ── */
+.main {
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.section-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--celeste);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--borde);
+}
+
+/* ── ESTADOS LOADING / ERROR ── */
+.estado-msg {
+  text-align: center;
+  color: var(--texto-suave);
+  padding: 2rem 0;
+  font-size: 0.95rem;
+}
+.estado-msg.error { color: #E05C5C; }
+
+/* ── PODIO ── */
+.podio {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.75rem;
+  align-items: end;   /* el 1° es más alto visualmente */
+}
+
+.podio-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 1.25rem 0.5rem 1rem;
+  border-radius: var(--radio-lg);
+  border: 1px solid var(--borde);
+  background: var(--fondo-card);
+  text-align: center;
+  transition: transform 0.2s;
+}
+.podio-card:hover { transform: translateY(-3px); }
+
+/* Altura diferenciada por posición */
+.podio-oro    { padding-top: 1.75rem; border-color: rgba(245,200,66,0.35); background: linear-gradient(180deg, rgba(245,200,66,0.08) 0%, var(--fondo-card) 100%); }
+.podio-plata  { border-color: rgba(192,200,216,0.25); }
+.podio-bronce { border-color: rgba(205,127,50,0.25); }
+
+.podio-medalla { font-size: 2rem; line-height: 1; }
+
+.podio-pos {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+}
+
+.podio-nombre {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--blanco);
+  word-break: break-word;
+}
+
+.podio-pts {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.podio-oro   .podio-pts { color: var(--oro); }
+.podio-plata .podio-pts { color: var(--plata); }
+.podio-bronce .podio-pts { color: var(--bronce); }
+
+/* ── TABLA ── */
+.tabla-wrap {
+  border-radius: var(--radio);
+  border: 1px solid var(--borde);
+  overflow: hidden;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tabla thead tr {
+  background: var(--fondo-card2);
+}
+
+.tabla th {
+  padding: 0.65rem 1rem;
+  text-align: left;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+}
+
+.tabla td {
+  padding: 0.7rem 1rem;
+  border-top: 1px solid var(--borde);
+  color: var(--texto);
+}
+
+.tabla tbody tr:hover { background: var(--fondo-card2); }
+
+.fila-top td { color: var(--blanco); }
+
+.td-pos {
+  width: 2.5rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.td-nombre { font-weight: 600; }
+
+.td-pts {
+  font-weight: 800;
+  color: var(--celeste);
+  text-align: right;
+}
+
+/* ── SECCIÓN PARTICIPAR ── */
+.participar-card {
+  background: var(--fondo-card);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-lg);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.participar-precio {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.precio-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+}
+
+.precio-valor {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--blanco);
+  letter-spacing: -0.02em;
+}
+
+.participar-desc {
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+  line-height: 1.6;
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: var(--verde-wa);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  width: fit-content;
+}
+.btn-whatsapp:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.wa-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+  padding: 1rem;
+  border-top: 1px solid var(--borde);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 420px) {
+  .podio-nombre { font-size: 0.82rem; }
+  .podio-pts    { font-size: 1.15rem; }
+  .podio-medalla { font-size: 1.6rem; }
+  .tabla th, .tabla td { padding: 0.6rem 0.75rem; }
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  .podio-card, .btn-whatsapp { transition: none; }
+}
