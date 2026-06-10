@@ -1,21 +1,31 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
+// ─────────────────────────────────────────────
+//  CONFIGURACIÓN — editá estos valores libremente
+// ─────────────────────────────────────────────
 const SHEET_CSV_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vQOnBT8XKTrCekQhzjp_LeX88ra_KlBI0qcJj0HGGJXk0wnN65LWYjHbPX1MqHMediAXoIo36j8msxa/pub?gid=0&single=true&output=csv";
 
-const WHATSAPP_NUMBER = "5493518078579"; // ← reemplazá con tu número (código de país sin +)
+const WHATSAPP_NUMBER = "5493885171772"; // tu número sin + ni espacios
 const WHATSAPP_MSG = encodeURIComponent(
   "Hola! Quiero participar en el prode 🏆",
 );
-const INSCRIPCION_PRECIO = "$3.000";
 const TORNEO_NOMBRE = "Prode Mundial 2026";
-const TORNEO_SUBTITULO = "16avos";
+const TORNEO_SUBTITULO = "16avos de final";
+
+const COSTO_INSCRIPCION = 3000; // pesos por participante
+const PORCENTAJE_PREMIO = 30; // % del total recaudado que va al ganador
+
+// ─────────────────────────────────────────────
+
+const MEDAL = ["🥇", "🥈", "🥉"];
+const PODIO_COLOR = ["podio-oro", "podio-plata", "podio-bronce"];
+const PODIO_LABEL = ["1°", "2°", "3°"];
 
 function parseCSV(text) {
   const lines = text.trim().split("\n");
   if (lines.length < 2) return [];
-  // Ignoramos la primera fila (cabecera) y parseamos el resto
   return lines
     .slice(1)
     .map((line) => {
@@ -28,9 +38,13 @@ function parseCSV(text) {
     .sort((a, b) => b.puntos - a.puntos);
 }
 
-const MEDAL = ["🥇", "🥈", "🥉"];
-const PODIO_COLOR = ["podio-oro", "podio-plata", "podio-bronce"];
-const PODIO_LABEL = ["1°", "2°", "3°"];
+function formatPesos(valor) {
+  return valor.toLocaleString("es-AR", {
+    style: "currency",
+    currency: "ARS",
+    minimumFractionDigits: 0,
+  });
+}
 
 export default function App() {
   const [ranking, setRanking] = useState([]);
@@ -53,8 +67,17 @@ export default function App() {
       });
   }, []);
 
+  // ── Cálculo del pozo ──
+  const totalParticipantes = ranking.length;
+  const totalRecaudado = totalParticipantes * COSTO_INSCRIPCION;
+  const calculoPremio = Math.round(totalRecaudado * (PORCENTAJE_PREMIO / 100));
+  const premioEstimado = calculoPremio > 100000 ? calculoPremio : 100000;
+
+  // ── ¿Todos tienen 0 puntos? ──
+  const todosEnCero =
+    ranking.length > 0 && ranking.every((p) => p.puntos === 0);
+
   const podio = ranking.slice(0, 3);
-  const resto = ranking.slice(3);
 
   return (
     <div className="app">
@@ -62,13 +85,32 @@ export default function App() {
       <header className="header">
         <div className="header-banda" />
         <div className="header-content">
-          <span className="header-eyebrow">⚽ Torneo de pronósticos</span>
+          <span className="header-eyebrow">⚽ Torneo de Los Siberianos</span>
           <h1 className="header-title">{TORNEO_NOMBRE}</h1>
           <p className="header-sub">{TORNEO_SUBTITULO}</p>
         </div>
       </header>
 
       <main className="main">
+        {/* ── TARJETA POZO ── */}
+        {!loading && !error && totalParticipantes > 0 && (
+          <div className="pozo-card">
+            <div className="pozo-left">
+              <span className="pozo-eyebrow">
+                🏆 Premio estimado al ganador
+              </span>
+              <span className="pozo-monto">{formatPesos(premioEstimado)}</span>
+              {/* <span className="pozo-detalle">
+                {totalParticipantes} inscriptos · {formatPesos(totalRecaudado)}{" "}
+                recaudados · {PORCENTAJE_PREMIO}% al ganador
+              </span> */}
+            </div>
+            <div className="pozo-trofeo" aria-hidden="true">
+              🏆
+            </div>
+          </div>
+        )}
+
         {/* ── PODIO ── */}
         <section className="section">
           <h2 className="section-title">Podio</h2>
@@ -76,9 +118,20 @@ export default function App() {
           {loading && <p className="estado-msg">Cargando ranking…</p>}
           {error && <p className="estado-msg error">{error}</p>}
 
-          {!loading && !error && podio.length > 0 && (
+          {/* Todos en cero → mensaje motivador en lugar del podio */}
+          {!loading && !error && todosEnCero && (
+            <div className="podio-vacio">
+              <span className="podio-vacio-icono">🏆</span>
+              <p className="podio-vacio-texto">El podio se está armando...</p>
+              <p className="podio-vacio-sub">
+                ¡A la espera de los primeros resultados para ver quién lidera!
+              </p>
+            </div>
+          )}
+
+          {/* Hay puntos → podio normal */}
+          {!loading && !error && !todosEnCero && podio.length > 0 && (
             <div className="podio">
-              {/* Orden visual: 2° izq, 1° centro, 3° der */}
               {[1, 0, 2].map((i) => {
                 const p = podio[i];
                 if (!p) return null;
@@ -95,7 +148,7 @@ export default function App() {
           )}
         </section>
 
-        {/* ── TABLA COMPLETA ── */}
+        {/* ── TABLA COMPLETA — siempre visible si hay datos ── */}
         {!loading && !error && ranking.length > 0 && (
           <section className="section">
             <h2 className="section-title">Ranking completo</h2>
@@ -110,8 +163,13 @@ export default function App() {
                 </thead>
                 <tbody>
                   {ranking.map((p, i) => (
-                    <tr key={i} className={i < 3 ? "fila-top" : ""}>
-                      <td className="td-pos">{i < 3 ? MEDAL[i] : i + 1}</td>
+                    <tr
+                      key={i}
+                      className={i < 3 && !todosEnCero ? "fila-top" : ""}
+                    >
+                      <td className="td-pos">
+                        {i < 3 && !todosEnCero ? MEDAL[i] : i + 1}
+                      </td>
                       <td className="td-nombre">{p.nombre}</td>
                       <td className="td-pts">{p.puntos}</td>
                     </tr>
@@ -128,7 +186,9 @@ export default function App() {
           <div className="participar-card">
             <div className="participar-precio">
               <span className="precio-label">Inscripción</span>
-              <span className="precio-valor">{INSCRIPCION_PRECIO}</span>
+              <span className="precio-valor">
+                {formatPesos(COSTO_INSCRIPCION)}
+              </span>
             </div>
             <p className="participar-desc">
               Pronosticá los resultados de cada fecha, sumá puntos y ganá

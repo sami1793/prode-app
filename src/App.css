@@ -1,29 +1,35 @@
 /* ── TOKENS ── */
 :root {
-  --celeste:     #75AADB;   /* celeste AFA */
-  --celeste-vivo:#4A90D9;
-  --blanco:      #F0F4FF;
-  --fondo:       #0D1117;
-  --fondo-card:  #161B22;
-  --fondo-card2: #1C2230;
-  --borde:       #2A3344;
-  --texto:       #E8EDF5;
-  --texto-suave: #8B97AB;
-  --oro:         #F5C842;
-  --plata:       #C0C8D8;
-  --bronce:      #CD7F32;
-  --verde-wa:    #25D366;
-  --radio:       12px;
-  --radio-lg:    18px;
+  --celeste: #75aadb; /* celeste AFA */
+  --celeste-vivo: #4a90d9;
+  --blanco: #f0f4ff;
+  --fondo: #0d1117;
+  --fondo-card: #161b22;
+  --fondo-card2: #1c2230;
+  --borde: #2a3344;
+  --texto: #e8edf5;
+  --texto-suave: #8b97ab;
+  --oro: #f5c842;
+  --plata: #c0c8d8;
+  --bronce: #cd7f32;
+  --verde-wa: #25d366;
+  --radio: 12px;
+  --radio-lg: 18px;
 }
 
 /* ── RESET MÍNIMO ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   background: var(--fondo);
   color: var(--texto);
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-family: "Segoe UI", system-ui, sans-serif;
   min-height: 100vh;
 }
 
@@ -112,14 +118,16 @@ body {
   padding: 2rem 0;
   font-size: 0.95rem;
 }
-.estado-msg.error { color: #E05C5C; }
+.estado-msg.error {
+  color: #e05c5c;
+}
 
 /* ── PODIO ── */
 .podio {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.75rem;
-  align-items: end;   /* el 1° es más alto visualmente */
+  align-items: end; /* el 1° es más alto visualmente */
 }
 
 .podio-card {
@@ -134,14 +142,31 @@ body {
   text-align: center;
   transition: transform 0.2s;
 }
-.podio-card:hover { transform: translateY(-3px); }
+.podio-card:hover {
+  transform: translateY(-3px);
+}
 
 /* Altura diferenciada por posición */
-.podio-oro    { padding-top: 1.75rem; border-color: rgba(245,200,66,0.35); background: linear-gradient(180deg, rgba(245,200,66,0.08) 0%, var(--fondo-card) 100%); }
-.podio-plata  { border-color: rgba(192,200,216,0.25); }
-.podio-bronce { border-color: rgba(205,127,50,0.25); }
+.podio-oro {
+  padding-top: 1.75rem;
+  border-color: rgba(245, 200, 66, 0.35);
+  background: linear-gradient(
+    180deg,
+    rgba(245, 200, 66, 0.08) 0%,
+    var(--fondo-card) 100%
+  );
+}
+.podio-plata {
+  border-color: rgba(192, 200, 216, 0.25);
+}
+.podio-bronce {
+  border-color: rgba(205, 127, 50, 0.25);
+}
 
-.podio-medalla { font-size: 2rem; line-height: 1; }
+.podio-medalla {
+  font-size: 2rem;
+  line-height: 1;
+}
 
 .podio-pos {
   font-size: 0.65rem;
@@ -163,9 +188,15 @@ body {
   font-weight: 800;
   letter-spacing: -0.02em;
 }
-.podio-oro   .podio-pts { color: var(--oro); }
-.podio-plata .podio-pts { color: var(--plata); }
-.podio-bronce .podio-pts { color: var(--bronce); }
+.podio-oro .podio-pts {
+  color: var(--oro);
+}
+.podio-plata .podio-pts {
+  color: var(--plata);
+}
+.podio-bronce .podio-pts {
+  color: var(--bronce);
+}
 
 /* ── TABLA ── */
 .tabla-wrap {
@@ -200,9 +231,13 @@ body {
   color: var(--texto);
 }
 
-.tabla tbody tr:hover { background: var(--fondo-card2); }
+.tabla tbody tr:hover {
+  background: var(--fondo-card2);
+}
 
-.fila-top td { color: var(--blanco); }
+.fila-top td {
+  color: var(--blanco);
+}
 
 .td-pos {
   width: 2.5rem;
@@ -210,7 +245,9 @@ body {
   text-align: center;
 }
 
-.td-nombre { font-weight: 600; }
+.td-nombre {
+  font-weight: 600;
+}
 
 .td-pts {
   font-weight: 800;
@@ -268,10 +305,15 @@ body {
   padding: 0.85rem 1.5rem;
   border-radius: 999px;
   text-decoration: none;
-  transition: opacity 0.2s, transform 0.2s;
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
   width: fit-content;
 }
-.btn-whatsapp:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-whatsapp:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
 
 .wa-icon {
   width: 1.2rem;
@@ -291,13 +333,137 @@ body {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 420px) {
-  .podio-nombre { font-size: 0.82rem; }
-  .podio-pts    { font-size: 1.15rem; }
-  .podio-medalla { font-size: 1.6rem; }
-  .tabla th, .tabla td { padding: 0.6rem 0.75rem; }
+  .podio-nombre {
+    font-size: 0.82rem;
+  }
+  .podio-pts {
+    font-size: 1.15rem;
+  }
+  .podio-medalla {
+    font-size: 1.6rem;
+  }
+  .tabla th,
+  .tabla td {
+    padding: 0.6rem 0.75rem;
+  }
 }
 
 /* ── REDUCED MOTION ── */
 @media (prefers-reduced-motion: reduce) {
-  .podio-card, .btn-whatsapp { transition: none; }
+  .podio-card,
+  .btn-whatsapp {
+    transition: none;
+  }
+}
+
+/* ══════════════════════════════════════════
+   NUEVOS ESTILOS — Mejoras v2
+   ══════════════════════════════════════════ */
+
+/* ── TARJETA POZO ── */
+.pozo-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: linear-gradient(135deg, #0f2442 0%, #162d50 60%, #1a3560 100%);
+  border: 1px solid rgba(117, 170, 219, 0.35);
+  border-radius: var(--radio-lg);
+  padding: 1.5rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Brillo sutil en la esquina superior */
+.pozo-card::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(
+    circle,
+    rgba(117, 170, 219, 0.15) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.pozo-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.pozo-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--celeste);
+}
+
+.pozo-monto {
+  font-size: clamp(1.8rem, 7vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.pozo-detalle {
+  font-size: 0.75rem;
+  color: rgba(117, 170, 219, 0.75);
+  margin-top: 0.1rem;
+}
+
+.pozo-trofeo {
+  font-size: 3rem;
+  line-height: 1;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 12px rgba(245, 200, 66, 0.4));
+}
+
+/* ── PODIO VACÍO (todos en cero) ── */
+.podio-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2.5rem 1rem;
+  border: 1px dashed var(--borde);
+  border-radius: var(--radio-lg);
+  text-align: center;
+  background: var(--fondo-card);
+}
+
+.podio-vacio-icono {
+  font-size: 2.5rem;
+  filter: grayscale(0.4);
+}
+
+.podio-vacio-texto {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--blanco);
+}
+
+.podio-vacio-sub {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  max-width: 300px;
+}
+
+/* ── RESPONSIVE POZO ── */
+@media (max-width: 420px) {
+  .pozo-card {
+    padding: 1.25rem;
+  }
+  .pozo-trofeo {
+    font-size: 2.2rem;
+  }
+  .pozo-detalle {
+    font-size: 0.68rem;
+  }
 }
