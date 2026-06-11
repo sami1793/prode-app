@@ -1,6 +1,6 @@
 /* ── TOKENS ── */
 :root {
-  --celeste: #75aadb; /* celeste AFA */
+  --celeste: #75aadb;
   --celeste-vivo: #4a90d9;
   --blanco: #f0f4ff;
   --fondo: #0d1117;
@@ -12,12 +12,13 @@
   --oro: #f5c842;
   --plata: #c0c8d8;
   --bronce: #cd7f32;
+  --verde: #3fb950;
   --verde-wa: #25d366;
+  --rojo: #e05c5c;
   --radio: 12px;
   --radio-lg: 18px;
 }
 
-/* ── RESET MÍNIMO ── */
 *,
 *::before,
 *::after {
@@ -25,30 +26,34 @@
   margin: 0;
   padding: 0;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 body {
   background: var(--fondo);
   color: var(--texto);
   font-family: "Segoe UI", system-ui, sans-serif;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+#root {
+  min-height: 100vh;
 }
 
-/* ── APP WRAPPER ── */
+/* ── APP ── */
 .app {
   max-width: 680px;
   margin: 0 auto;
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
 }
 
 /* ── HEADER ── */
 .header {
   position: relative;
-  padding: 3rem 1.5rem 2.5rem;
+  padding: 2.5rem 1.5rem 2rem;
   text-align: center;
   overflow: hidden;
 }
-
-/* Banda celeste/blanca diagonal sutil en el fondo */
 .header-banda {
   position: absolute;
   inset: 0;
@@ -61,7 +66,6 @@ body {
   );
   pointer-events: none;
 }
-
 .header-eyebrow {
   display: inline-block;
   font-size: 0.75rem;
@@ -69,37 +73,123 @@ body {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--celeste);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
 }
-
 .header-title {
-  font-size: clamp(2rem, 8vw, 3.2rem);
+  font-size: clamp(1.8rem, 7vw, 2.8rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  color: var(--blanco);
-  /* Línea doble: blanco + celeste */
   background: linear-gradient(135deg, #fff 40%, var(--celeste) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
 .header-sub {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
   color: var(--texto-suave);
   letter-spacing: 0.05em;
 }
 
-/* ── MAIN & SECCIONES ── */
-.main {
-  padding: 0 1rem;
+/* ── POZO ── */
+.pozo-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: linear-gradient(135deg, #0f2442 0%, #162d50 60%, #1a3560 100%);
+  border: 1px solid rgba(117, 170, 219, 0.35);
+  border-radius: var(--radio-lg);
+  padding: 1.5rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+  margin: 0 1rem 0;
+}
+.pozo-card::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(
+    circle,
+    rgba(117, 170, 219, 0.15) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+.pozo-left {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 0.3rem;
+}
+.pozo-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--celeste);
+}
+.pozo-monto {
+  font-size: clamp(1.8rem, 7vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #fff;
+  line-height: 1.1;
+}
+.pozo-trofeo {
+  font-size: 3rem;
+  line-height: 1;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 12px rgba(245, 200, 66, 0.4));
 }
 
+/* ── TABS ── */
+.tabs-nav {
+  display: flex;
+  gap: 0.25rem;
+  padding: 1rem 1rem 0;
+  border-bottom: 1px solid var(--borde);
+  margin-top: 1.25rem;
+}
+.tab-btn {
+  flex: 1;
+  padding: 0.65rem 0.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--texto-suave);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+  white-space: nowrap;
+  margin-bottom: -1px;
+}
+.tab-btn:hover {
+  color: var(--texto);
+}
+.tab-btn--activa {
+  color: var(--celeste);
+  border-bottom-color: var(--celeste);
+}
+
+/* ── MAIN ── */
+.main {
+  padding: 0 1rem;
+}
+.tab-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 1.5rem;
+}
+
+/* ── SECCIONES ── */
 .section-title {
   font-size: 0.7rem;
   font-weight: 700;
@@ -111,7 +201,6 @@ body {
   border-bottom: 1px solid var(--borde);
 }
 
-/* ── ESTADOS LOADING / ERROR ── */
 .estado-msg {
   text-align: center;
   color: var(--texto-suave);
@@ -119,7 +208,7 @@ body {
   font-size: 0.95rem;
 }
 .estado-msg.error {
-  color: #e05c5c;
+  color: var(--rojo);
 }
 
 /* ── PODIO ── */
@@ -127,9 +216,8 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.75rem;
-  align-items: end; /* el 1° es más alto visualmente */
+  align-items: end;
 }
-
 .podio-card {
   display: flex;
   flex-direction: column;
@@ -145,8 +233,6 @@ body {
 .podio-card:hover {
   transform: translateY(-3px);
 }
-
-/* Altura diferenciada por posición */
 .podio-oro {
   padding-top: 1.75rem;
   border-color: rgba(245, 200, 66, 0.35);
@@ -162,12 +248,10 @@ body {
 .podio-bronce {
   border-color: rgba(205, 127, 50, 0.25);
 }
-
 .podio-medalla {
   font-size: 2rem;
   line-height: 1;
 }
-
 .podio-pos {
   font-size: 0.65rem;
   font-weight: 700;
@@ -175,14 +259,12 @@ body {
   text-transform: uppercase;
   color: var(--texto-suave);
 }
-
 .podio-nombre {
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--blanco);
   word-break: break-word;
 }
-
 .podio-pts {
   font-size: 1.4rem;
   font-weight: 800;
@@ -198,23 +280,46 @@ body {
   color: var(--bronce);
 }
 
+.podio-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2.5rem 1rem;
+  border: 1px dashed var(--borde);
+  border-radius: var(--radio-lg);
+  text-align: center;
+  background: var(--fondo-card);
+}
+.podio-vacio-icono {
+  font-size: 2.5rem;
+  filter: grayscale(0.4);
+}
+.podio-vacio-texto {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--blanco);
+}
+.podio-vacio-sub {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  max-width: 300px;
+}
+
 /* ── TABLA ── */
 .tabla-wrap {
   border-radius: var(--radio);
   border: 1px solid var(--borde);
   overflow: hidden;
 }
-
 .tabla {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
-
 .tabla thead tr {
   background: var(--fondo-card2);
 }
-
 .tabla th {
   padding: 0.65rem 1rem;
   text-align: left;
@@ -224,54 +329,191 @@ body {
   text-transform: uppercase;
   color: var(--texto-suave);
 }
-
 .tabla td {
   padding: 0.7rem 1rem;
   border-top: 1px solid var(--borde);
   color: var(--texto);
 }
-
 .tabla tbody tr:hover {
   background: var(--fondo-card2);
 }
-
 .fila-top td {
   color: var(--blanco);
 }
-
 .td-pos {
   width: 2.5rem;
   font-size: 1rem;
   text-align: center;
 }
-
 .td-nombre {
   font-weight: 600;
 }
-
 .td-pts {
   font-weight: 800;
   color: var(--celeste);
   text-align: right;
 }
 
-/* ── SECCIÓN PARTICIPAR ── */
+/* ── PLACEHOLDER ── */
+.placeholder-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 3rem 1rem;
+  border: 1px dashed var(--borde);
+  border-radius: var(--radio-lg);
+  background: var(--fondo-card);
+  text-align: center;
+}
+.placeholder-icono {
+  font-size: 2.5rem;
+}
+.placeholder-texto {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--blanco);
+}
+.placeholder-sub {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  max-width: 300px;
+  line-height: 1.6;
+}
+
+/* ── PUNTUACIÓN ── */
+.puntuacion-intro {
+  font-size: 0.88rem;
+  color: var(--texto-suave);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+.puntuacion-intro strong {
+  color: var(--texto);
+}
+
+.reglas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.regla-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1rem 1.25rem;
+  background: var(--fondo-card);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-lg);
+  border-left-width: 3px;
+}
+.regla-oro {
+  border-left-color: var(--oro);
+}
+.regla-celeste {
+  border-left-color: var(--celeste);
+}
+.regla-verde {
+  border-left-color: var(--verde);
+}
+.regla-gris {
+  border-left-color: var(--texto-suave);
+}
+.regla-rojo {
+  border-left-color: var(--rojo);
+}
+
+.regla-puntos {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--blanco);
+  min-width: 3rem;
+  text-align: center;
+  flex-shrink: 0;
+  padding-top: 0.1rem;
+}
+.regla-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+.regla-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--blanco);
+}
+.regla-icono {
+  font-size: 1rem;
+}
+.regla-desc {
+  font-size: 0.82rem;
+  color: var(--texto-suave);
+  line-height: 1.5;
+}
+.regla-ejemplo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+  background: var(--fondo-card2);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radio);
+  margin-top: 0.2rem;
+}
+.ejemplo-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--celeste);
+  margin-right: 0.25rem;
+}
+.ejemplo-item strong {
+  color: var(--blanco);
+}
+.ejemplo-sep {
+  color: var(--borde);
+}
+
+.puntuacion-nota {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 1rem 1.25rem;
+  margin-top: 0.5rem;
+  background: var(--fondo-card);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  font-size: 0.82rem;
+  color: var(--texto-suave);
+  line-height: 1.6;
+}
+
+/* ── FOOTER PARTICIPAR ── */
+.footer-participar {
+  padding: 1.5rem 1rem 0;
+}
 .participar-card {
   background: var(--fondo-card);
   border: 1px solid var(--borde);
   border-radius: var(--radio-lg);
-  padding: 1.75rem 1.5rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
 }
-
 .participar-precio {
   display: flex;
   align-items: baseline;
   gap: 0.75rem;
 }
-
 .precio-label {
   font-size: 0.7rem;
   font-weight: 700;
@@ -279,20 +521,17 @@ body {
   text-transform: uppercase;
   color: var(--texto-suave);
 }
-
 .precio-valor {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 800;
   color: var(--blanco);
   letter-spacing: -0.02em;
 }
-
 .participar-desc {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--texto-suave);
   line-height: 1.6;
 }
-
 .btn-whatsapp {
   display: inline-flex;
   align-items: center;
@@ -314,21 +553,10 @@ body {
   opacity: 0.9;
   transform: translateY(-1px);
 }
-
 .wa-icon {
   width: 1.2rem;
   height: 1.2rem;
   flex-shrink: 0;
-}
-
-/* ── FOOTER ── */
-.footer {
-  margin-top: 3rem;
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--texto-suave);
-  padding: 1rem;
-  border-top: 1px solid var(--borde);
 }
 
 /* ── RESPONSIVE ── */
@@ -346,124 +574,29 @@ body {
   .tabla td {
     padding: 0.6rem 0.75rem;
   }
-}
-
-/* ── REDUCED MOTION ── */
-@media (prefers-reduced-motion: reduce) {
-  .podio-card,
-  .btn-whatsapp {
-    transition: none;
-  }
-}
-
-/* ══════════════════════════════════════════
-   NUEVOS ESTILOS — Mejoras v2
-   ══════════════════════════════════════════ */
-
-/* ── TARJETA POZO ── */
-.pozo-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  background: linear-gradient(135deg, #0f2442 0%, #162d50 60%, #1a3560 100%);
-  border: 1px solid rgba(117, 170, 219, 0.35);
-  border-radius: var(--radio-lg);
-  padding: 1.5rem 1.75rem;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Brillo sutil en la esquina superior */
-.pozo-card::before {
-  content: "";
-  position: absolute;
-  top: -40px;
-  right: -40px;
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(
-    circle,
-    rgba(117, 170, 219, 0.15) 0%,
-    transparent 70%
-  );
-  pointer-events: none;
-}
-
-.pozo-left {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.pozo-eyebrow {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--celeste);
-}
-
-.pozo-monto {
-  font-size: clamp(1.8rem, 7vw, 2.8rem);
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  color: #fff;
-  line-height: 1.1;
-}
-
-.pozo-detalle {
-  font-size: 0.75rem;
-  color: rgba(117, 170, 219, 0.75);
-  margin-top: 0.1rem;
-}
-
-.pozo-trofeo {
-  font-size: 3rem;
-  line-height: 1;
-  flex-shrink: 0;
-  filter: drop-shadow(0 0 12px rgba(245, 200, 66, 0.4));
-}
-
-/* ── PODIO VACÍO (todos en cero) ── */
-.podio-vacio {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 2.5rem 1rem;
-  border: 1px dashed var(--borde);
-  border-radius: var(--radio-lg);
-  text-align: center;
-  background: var(--fondo-card);
-}
-
-.podio-vacio-icono {
-  font-size: 2.5rem;
-  filter: grayscale(0.4);
-}
-
-.podio-vacio-texto {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--blanco);
-}
-
-.podio-vacio-sub {
-  font-size: 0.85rem;
-  color: var(--texto-suave);
-  max-width: 300px;
-}
-
-/* ── RESPONSIVE POZO ── */
-@media (max-width: 420px) {
   .pozo-card {
     padding: 1.25rem;
   }
   .pozo-trofeo {
     font-size: 2.2rem;
   }
-  .pozo-detalle {
-    font-size: 0.68rem;
+  .tab-btn {
+    font-size: 0.72rem;
+    padding: 0.6rem 0.25rem;
+  }
+  .regla-card {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .regla-puntos {
+    min-width: auto;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .podio-card,
+  .btn-whatsapp {
+    transition: none;
   }
 }
